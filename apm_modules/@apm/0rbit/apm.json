@@ -1,0 +1,32 @@
+{
+    "TotalInstalls": 26,
+    "Versions": [
+        {
+            "Version": "0.0.1",
+            "PkgID": "ajatuOP0q0baINDIL40vMpmM7oMO_dE9xX-057yNJXM",
+            "Installs": 3
+        },
+        {
+            "Version": "0.0.2",
+            "PkgID": "vFIZIVFrtyxMf-hU7XY9Q_CejHAqAEvMzU-w30hAFhQ",
+            "Installs": 25
+        }
+    ],
+    "Repository": "https://github.com/0rbit-co/package",
+    "Owner": "FDUH0kZ9McNtpAx3gXTQcMR4dMUTJ1fZU_10JM1Yw4M",
+    "Name": "0rbit",
+    "Authors": [],
+    "Source": "--[[\n    name: _0rbit\n    description: Package to build with 0rbit to Access ANY Real World Data in your AO process.\n    dev: @megabyte0x\n]]\n\nlocal _0rbit = {\n    _version = \"0.0.1\",\n    MAIN_PROCESS = \"BaMK1dfayo75s3q1ow6AO64UDpD9SEFbeE8xYrY2fyQ\",\n    _0RBT_TOKEN = \"BUhZLMwQ6yZHguLtJYA5lLUa9LQzLXMXRfaq9FVcPJc\"\n}\n\nfunction _0rbit.sendGetRequest(url)\n    local fee_amount = \"1000000000000\" -- 1 $0RBT\n\n    Send({\n        Target = _0rbit._0RBT_TOKEN,\n        Action = \"Transfer\",\n        Recipient = _0rbit.MAIN_PROCESS,\n        Quantity = fee_amount,\n        [\"X-Action\"] = \"Get-Real-Data\",\n        [\"X-Url\"] = url\n    })\nend\n\nfunction _0rbit.sendPostRequest(url, body, headers)\n    local fee_amount = \"1000000000000\" -- 1 $0RBT\n    headers = headers or nil\n    body = body or nil\n\n    Send({\n        Target = _0rbit._0RBT_TOKEN,\n        Action = \"Transfer\",\n        Recipient = _0rbit.MAIN_PROCESS,\n        Quantity = fee_amount,\n        [\"X-Action\"] = \"Post-Real-Data\",\n        [\"X-Url\"] = url,\n        [\"X-Body\"] = body,\n        [\"X-Headers\"] = headers\n    })\nend\n\nfunction _0rbit.receiveResponse(msg, onResponse)\n    local responseId = msg.RequestId;\n    onResponse = onResponse or function() end\n    print(\"Response received for RequestId \" .. responseId)\n    onResponse(msg)\nend\n\nfunction _0rbit.getBalance(recepient)\n    recepient = recepient or ao.id\n\n    Send({ Target = _0rbit._0RBT_TOKEN, Recipient = recepient, Tags = { Action = \"Balance\" } })\nend\n\nreturn _0rbit\n",
+    "PkgID": "vFIZIVFrtyxMf-hU7XY9Q_CejHAqAEvMzU-w30hAFhQ",
+    "Description": "0rbit is the Lua Module designed for interacting with 0rbit to Access Real World Data into your ao process.",
+    "Installs": 25,
+    "Keywords": [],
+    "Warnings": {},
+    "License": "",
+    "Dependencies": {},
+    "Vendor": "@apm",
+    "Readme": "# 0rbit Package\n\n**0rbit** is the Lua Module designed for interacting with [0rbit](https://0rbit.co) to **Access Real World Data** into your `ao` process. \n\n## Features \n\n- **GET Request**: Make a HTTP GET request to any valid URL.\n- **POST Request**: Make a HTTP POST request to any valid URL.\n- **Receive Response**: Receive the response of the request made.\n- **Balance**: Get the balance of **0RBT POINTS** of your processId.\n\n## Installation\n\n### Using APM\n\n1. Open your AOS and `laod` APM blueprint in to your process.\n\n    ```bash\n    .load-blueprint apm\n    ```\n2. Install the `0rbit` package.\n\n    ```bash\n    APM.install(\"0rbit\")\n    ```\n\n### Import Module\n    \n```lua\n_0rbit = require(\"0rbit\")\n```\n\n### Directly from Source\n\nCopy `src/main.lua` file and paste it into your directory named as `0rbit.lua`.\n\n## Usage\n\n### Creating a GET Request\n\n```lua\n_0rbit.sendGetRequest(GET_URL)\n```\n- `GET_URL`: The URL to make a GET request.\n\n### Creating a POST Request\n\n```lua\n_0rbit.sendPostRequest(POST_URL, POST_BODY, POST_HEADERS)\n```\n- `POST_URL`: The URL to make a POST request.\n- `POST_BODY` (optional): The body to be sent in POST request.\n- `POST_HEADERS` (optional): The headers to be sent in POST request.\n\n### Receiving Response and Executing a function\n    \n```lua\n_0rbit.receiveResponse(msg, onResponse)\n```\n- `msg`: The message to be received.\n- `onResponse` (optional): The function to be executed on response. If not provided, it will execute an empty function.\n\n### Checking $0RBT Balance \n\n```lua\n_0rbit.getBalance(address)\n```\n- `address` (optional): The address of the processId. If not provided, it will take the process Id of the current process.\n\n## Example\n\nYou can example implementation with 0rbit Package at [example](example.lua) file.",
+    "Version": "0.0.2",
+    "ID": 34,
+    "Timestamp": 1720100192851
+}
