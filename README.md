@@ -12,6 +12,70 @@
 - `apm-tool` was used to install subscribable and 0rbit package.
 - betterIDEa was used to test the process.
 
+## How to Start
+
+### Step 1: Price Oracle Subscribable Process [Terminal 1]
+
+1. Start AOS
+
+    ```bash
+    aos price_oracle
+    ```
+
+2. Load `price_oracle.lua` file in your process
+
+    ```bash
+    .load price_oracle.lua
+    ```
+
+3. Fund `price_oracle` process Id with [$0RBT](https://docs.0rbit.co/protocol/token/how-to-get)
+   - DM [@megabyte0x](x.com/megabyte0x) or [@lucifer0x17](x.com/lucifer0x17) or [@0rbit](x.com/0rbit.co) to get $0RBT
+
+### Step 2: Subscribing to Price Oracle Subscribable Process [Terminal 2]
+
+1. Start AOS
+
+    ```bash
+    aos subscriber
+    ```
+
+2. Send the message to `Register-Subscriber`
+
+    ```bash
+    Send({
+        Target = <PRICE_ORACLE_PROCESS_ID>,
+        Action = 'Register-Subscriber',
+        Topics = json.encode({ 'price-update' })
+    })
+    ```
+
+3. Fund the `Subscriber` process ID with `$0RBT`
+4. Send the message to `Pay-For-Subscription`
+
+    ```bash
+    send({
+            Target = 0RBT,
+            Action = 'Transfer',
+            Recipient =  <PRICE_ORACLE_PROCESS_ID>,
+            Quantity = "1000000000000",
+            ["X-Action"] = "Pay-For-Subscription",
+            ["X-Subscriber-Process-Id"] = ao.id
+        })
+    ```
+
+### Step 3: Updating the price [Terminal 1]
+
+1. Send the message to update the price
+
+    ```bash
+    Send({Target = ao.id, Action="UpdatePrice"})
+    ```
+
+---
+After following the above steps you will receive a message on Terminal 2 (Subscriber Process) with updated price.
+
+---
+
 ## Subscription Overview
 
 ### Register Subscriber
