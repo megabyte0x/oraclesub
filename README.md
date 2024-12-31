@@ -4,7 +4,7 @@
 
 ## Tutorial Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5faPa57A9Is" title="Price Oracle Subscription Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Price Oracle Subscription Tutorial](./diagrams/ogBanner.jpeg)](https://www.youtube.com/watch?v=5faPa57A9Is)
 
 
 ## Tools Utilized
